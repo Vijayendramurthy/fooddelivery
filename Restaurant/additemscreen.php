@@ -49,9 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $imagePath = $_FILES['image']['tmp_name'];
             $imageName = pathinfo($_FILES['image']['name'], PATHINFO_FILENAME);
 
-            $cloud_name = 'dtiniasq3';
-            $api_key = '372822487449485';
-            $api_secret = 'I8-z_AcKEYQ7ACnM79geCO44H90';
+            $cloud_name = 'YOUR_CLOUD_NAME';
+            $api_key = 'YOUR API KEY';
+            $api_secret = 'YOUR API SECRET KEY';
             $timestamp = time();
             $public_id = $imageName;
             $signature = sha1("public_id=$public_id&timestamp=$timestamp$api_secret");
