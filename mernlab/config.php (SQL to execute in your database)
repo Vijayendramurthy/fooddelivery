@@ -1,0 +1,38 @@
+CREATE TABLE menu (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    restaurantEmail VARCHAR(255) NOT NULL,
+    restaurantId VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId VARCHAR(255) NOT NULL,
+    items JSON NOT NULL, -- Stores the array of items as JSON
+    status ENUM('Pending', 'Processing', 'Delivered', 'Cancelled') NOT NULL DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    assigned_delivery_id INT DEFAULT NULL
+);
+
+CREATE TABLE order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    item_id VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
